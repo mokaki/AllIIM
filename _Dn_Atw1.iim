@@ -1,0 +1,247 @@
+    '///'///'///'///'///'///'///'///
+
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+VERSION BUILD=9030808 RECORDER=FX
+'///不提示一般錯誤
+SET !ERRORIGNORE YES
+
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+    '///'///'///'///'///'///'///'///
+    '///LOOP次數
+    '///SET !LOOP 1
+    '///PAUSE
+    '///'///'///'///'///'///'///'///
+
+'///
+
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+
+
+'///由_Dn_Atw.iim轉來'///由_Dn_Atw.iim轉來'///由_Dn_Atw.iim轉來'///由_Dn_Atw.iim轉來
+
+  '///now TAB 必須在../Page/DNPage.html打開 '///現在網此DNPage.html複製=VAR0
+TAB T=1
+SET !VAR0 {{!URLCURRENT}}
+
+
+  '///因一有用,用二到址 '///到Data檔,用於記錄客uls
+TAB OPEN
+TAB T=2
+URL GOTO={{!VAR0}}
+
+
+  '///回一,點GetURLCURRENT
+TAB T=1
+TAG POS=1 TYPE=A ATTR=ID:GetURLCURRENT
+WAIT SECONDS=1
+  '///記錄Data檔網此
+SET !VAR0 {{!URLCURRENT}}
+
+
+  '///回二，將Data檔網此修改　html JS
+TAB T=2
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:DateUrl CONTENT={{!VAR0}}
+WAIT SECONDS=1
+  '//並放在 textarea id=DateUrl 
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:DateUrl EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+
+
+  '///去 bet.hkjc.com/football
+TAB OPEN
+TAB T=3
+URL GOTO=https://bet.hkjc.com/football/index.aspx
+WAIT SECONDS=3
+
+
+  '///取星期放到 WeekDay
+TAG POS=2 TYPE=DIV ATTR=TITLE:所有賠率 EXTRACT=TXT
+SET !VAR1 {{!EXTRACT}} 
+SET !EXTRACT NULL
+
+
+  '///星期 走數字 WeekDay
+TAB T=2
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:WeekDay CONTENT={{!VAR1}}
+WAIT SECONDS=1
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:WeekDay EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+
+  '///記錄到 TEXTAREA ID:Text0
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:Text0 CONTENT=今晚直播<SP>{{!VAR1}}<SP>{{!NOW:dd/mm}}<SP><SP>
+
+  '///到據本 Dn_Atw1_ 判斷場數 及 由gif判斷是否記錄
+URL GOTO=imacros://run/?m=_Dn_Atw1_.iim
+
+
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim'///_Dn_Atw1.iim
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TAG POS=1 TYPE=A ATTR=TITLE:對賽往績 
+TAB T=4
+TAG POS=1 TYPE=H1 ATTR=TXT:* EXTRACT=TXT
+SET !VAR2 {{!EXTRACT}} 
+SET !EXTRACT NULL
+TAG POS=2 TYPE=H1 ATTR=TXT:* EXTRACT=TXT
+SET !VAR3 {{!EXTRACT}} 
+SET !EXTRACT NULL
+TAB CLOSE
+
+
+
+
+PROMPT 今晚直播<SP>{{!VAR1}}<SP>{{!NOW:dd/mm}}<BR><BR>{{!VAR2}}<BR><BR>{{!VAR3}}<BR><BR>{{!VAR8}}<BR><BR>{{!VAR9}}
+
+
+
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+
+
+
+
+
+
+
+
+
+
+
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+
+
+SET !VAR0 {{!NOW:dd/mm}}
+'///SaveData
+ADD !EXTRACT {{!walletOVG}},{{!VAR2}},{{!VAR1}},,,,,
+SAVEAS TYPE=EXTRACT FOLDER={{!VAR0}} FILE=今晚直播{!NOW:yyddmm}}.txt
+
+
+
+
+TAB T=1
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:DN CONTENT={{!VAR1}}
+WAIT SECONDS=3
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:DN EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+
+
+
+
+PROMPT <BR>已得數據<BR>{{!VAR2}}<BR>{{!VAR3}}
+
+
+
+
+
+
+
+
+PAUSE
+'///回到據本
+URL GOTO=imacros://run/?m=Dn_Atw0.iim
+'///'///'///'///'///'///'///'///'///'///'///'///'///
+'///'///'///'///'///'///'///'///'///'///'///'///'///
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw'///Dn_Atw
+
+
+
+
+
+
+
+
+
+
+
+
