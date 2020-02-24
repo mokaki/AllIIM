@@ -1,0 +1,19 @@
+﻿PROMPT 請按"F5"刷新目前頁面，已繼續自動執行<BR><BR>您亦可以點選左上角黑色框內的<SP>Pause(暫停)<SP>或Stop(結束)<BR><BR>轉為手動執行設定
+'///ST0-2///數據下載
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 1
+'///LOOP次數
+SET !LOOP 1
+SET !EXTRACT_TEST_POPUP NO
+TAB T=1
+
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:DAM EXTRACT=TXT
+SET !VAR8 {{!EXTRACT}} 
+SET !EXTRACT NULL
+
+TAG POS=1 TYPE=BUTTON ATTR=ID:create_file
+TAG POS=1 TYPE=A ATTR=ID:download_link
+
+WAIT SECONDS=1
+PROMPT 請將保存位置選擇在"APF<SP>><SP>Data<SP>>Datasources"內<BR><BR>此檔案位置在<SP>>卓面<SP>>APF-數據庫<BR><BR>點進去保存即可<BR><BR>保存後，直接執行卓面的帳號{{!VAR8}}自動推帖，便會自動開始工作<BR><BR>

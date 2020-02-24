@@ -1,0 +1,7 @@
+﻿'///進入據本-Select-3=自動發送廣告
+PROMPT <br>您的交易已經完成<br><br>將會自動轉到查看Something~
+
+
+TAB T=0
+'///AuotToSelect
+URL GOTO=imacros://run/?m=NewSomething-Have.iim

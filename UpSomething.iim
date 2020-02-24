@@ -1,0 +1,56 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 1
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+'///進入據本-UpSomething
+
+
+'///現在身份
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+'///CSV路徑
+SET !DATASOURCE {{!VAR0}}.txt
+SET !DATASOURCE_LINE 1
+
+TAB T=-1
+
+URL GOTO=http://somethingmarket.org/user.php?act=message_list
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:formLogin ATTR=NAME:password CONTENT={{!COL6}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formLogin ATTR=NAME:username CONTENT={{!COL5}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formLogin ATTR=NAME:username CONTENT={{!COL5}}
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:formLogin ATTR=NAME:password CONTENT={{!COL6}}
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:formLogin ATTR=NAME:submit
+URL GOTO=http://somethingmarket.org/user.php?act=message_list
+WAIT SECONDS=3
+
+
+
+'///POS=1一般 // POS=2UpSomething
+TAG POS=2 TYPE=INPUT:RADIO FORM=NAME:formMsg ATTR=NAME:msg_type
+'///txt
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formMsg ATTR=NAME:msg_title CONTENT={{!COL3}}
+'///img
+TAG POS=1 TYPE=TEXTAREA FORM=NAME:formMsg ATTR=NAME:msg_content CONTENT={{!COL3}}
+'///img
+TAG POS=1 TYPE=TEXTAREA FORM=NAME:formMsg ATTR=NAME:msg_content CONTENT={{!COL3}}
+'///txt
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formMsg ATTR=NAME:msg_title CONTENT={{!COL3}}
+'///Send
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:formMsg ATTR=*
+
+
+
+PROMPT 已經登記了您的something，上架於本網站及Ａｐｐ。一般需時5至20分鐘<BR><BR>請耐心等候...<BR><BR>是否需要管理[Something]?<BR>0=回到功能列表<BR>1=管理[Something] !SL 0
+
+
+
+'///AuotToSelect
+URL GOTO=imacros://run/?m=UpSomething-{{!SL}}.iim
+

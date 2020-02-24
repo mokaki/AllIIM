@@ -1,0 +1,126 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+
+'///進入據本-NewSomething-Not
+
+'///現在身份
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+'///CSV路徑
+SET !DATASOURCE {{!VAR0}}.txt
+SET !DATASOURCE_LINE 1
+
+
+
+'///獲取地址以太幣儲存量
+'///TAB OPEN
+TAB T=2
+URL GOTO=https://www.myetherwallet.com/#view-wallet-info
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:183
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:aria8 CONTENT={{!COL3}}
+TAG POS=1 TYPE=A ATTR=TXT:View<SP>Balance
+WAIT SECONDS=3
+TAG POS=1 TYPE=LI ATTR=TXT:*ETH EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+'///TAB CLOSE
+TAB T=0
+
+
+'///ToAbout(GetPrice)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+TAG POS=1 TYPE=A ATTR=TXT:About
+TAG POS=1 TYPE=BUTTON ATTR=TXT:READ
+WAIT SECONDS=2
+TAG POS=14 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR2 {{!EXTRACT}}
+set !extract null
+
+
+
+
+
+
+TAB T=1
+
+'///ETHToSzabo
+URL GOTO=https://converter.murkin.me/
+TAG POS=1 TYPE=INPUT:TEXT FORM=ID:input-form ATTR=ID:value-input CONTENT={{!VAR2}}
+TAG POS=1 TYPE=SELECT FORM=ID:input-form ATTR=ID:value-type CONTENT=%szabo
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:ether EXTRACT=txt
+SET !VAR2 {{!EXTRACT}}
+set !extract null
+
+
+'///輸入-START資料
+PROMPT <br>開設Something-名稱<BR><br>數據塊[{{!COL2}}.txt]，以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，開設Something需要{{!VAR2}}ETH/個以太幣<br><br>請輸入[Something]名稱，這名稱將會永久地記錄在以太網絡區塊之中，沒有人能夠修改他。<BR><BR>如果您是經營店鋪，這可以是您的店舖名稱。如果你要籌辦一個活動(例如您想募集以太幣)，這就是活動的名稱。<BR><BR>如果您不代表任何人，其實您可以使用任何符號寫上代表您自己的東西<br><br>注意~!!!這是不能修改的<sp>注意~!!!這是不能修改的<sp>注意~!!!這是不能修改的<BR> !PPname any🐳🐳🐳(╯‵□′)╯︵┴─┴...
+
+
+PROMPT 開設Something-信息<br>數據塊[{{!COL2}}.txt]，以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，開設Something需要{{!VAR2}}ETH/個以太幣<br><br>請輸入[Something]信息<BR>[如果別人想了解您更多<sp>應該去那裡呢?]<BR><BR>這個可以是您公司的地址<sp>/<sp>直播節目的網址<sp>/<sp>您的淘寶店<sp>/<sp>微信號<sp>/<sp>手機號碼或一段任何文字的短句甚至是任何程式碼都可以...(由於在區塊記錄或修改任何資料都需要消耗ＧＡＳ(以太幣的最少單位，即每一隻字都要錢)，所以我們會建議，這項的信息愈短愈好。)<BR><BR>這將會永久地記錄在區塊之中，而且<SP>只有您自己<SP>[{{!COL3}}]<SP>可以隨時修改他。 !Messaged http://www....any....
+
+PROMPT 開設Something-價格<br>請輸入價格<BR><BR>這是您[Something]的［最低收費價格］，如果您正在出售一件產品，這就是您產品標價。如果您是一個網絡主播，這就是您客人給您的[節目收費]。如果您的[Something]是一個籌款活動,這就是每一次最低捐款金額。您的[Something]將會為您帶來更多的[價值]。<br>日後您可使用設定功能控制您自己的[價值]。<BR><BR>價格用[<sp>Szabo<sp>]計算<BR><BR>1000000(一百萬)個[<sp>Szabo<sp>]=1個ETH(以太幣)<BR>1個[<sp>Szabo<sp>]=0.000001個ETH(以太幣)<BR><BR>可以是０或以上（包括０）的任何數字。<BR><BR>如果您有需要暫時凍結[Something]，您可以輸入負數，這樣別人將暫時不能付款給您的[Something]。<BR><BR>您也可以隨時修改價格<BR>　!Price 1
+
+PROMPT 開設Something-圖示<br>數據塊[{{!COL2}}.txt]，以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，開設Something需要{{!VAR2}}ETH/個以太幣<br><br>請輸入發行品符號<BR><BR>會顯示於[Something]上的圖示<BR><BR>可以是任何圖片的網址<BR><BR>您可用於展示您產品/禮券的QRcode<BR><BR>或純粹的一個徽章<BR><BR>這裡可以填寫任何文字甚至是任何程式碼都可（此項如不是圖片的網址，就不能於本網站及Ａｐｐ上架，只能使用官方錢包查看。）<BR><BR>這將會永久地記錄在區塊之中，您可以隨時修改他。 !Symbol http://....
+
+
+
+'///現在身份
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei CONTENT={{!COL2}}
+
+
+TAB T=0
+
+'///合約功能-START
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE:nth-of-type(2)>SECTION>SPAN>DIV:nth-of-type(3)>A" BUTTON=0
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE:nth-of-type(2)>SECTION>SPAN>DIV:nth-of-type(3)>UL>LI:nth-of-type(8)>A" BUTTON=0
+TAG POS=7 TYPE=INPUT:TEXT ATTR=* CONTENT={{!PPname}}
+TAG POS=8 TYPE=INPUT:TEXT ATTR=* CONTENT={{!Messaged}}
+TAG POS=9 TYPE=INPUT:TEXT ATTR=* CONTENT={{!Price}}
+TAG POS=10 TYPE=INPUT:TEXT ATTR=* CONTENT={{!Symbol}}
+
+
+
+'///打開錢包!!!!!
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:237
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:aria6 CONTENT={{!COL4}}
+TAG POS=1 TYPE=A ATTR=TXT:Unlock
+TAG POS=1 TYPE=BUTTON ATTR=TXT:WRITE
+PROMPT 開設Something<br>停止自動執行~!!!<br>您正在付款~!!!<BR>如果您沒有打算支付任何費用，請立即關閉本程式~!!!<BR><BR>數據塊[{{!COL2}}.txt]<BR>以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，開設Something需要{{!VAR2}}ETH/個以太幣<br><br>Something-名稱<BR>{{!PPname}}<br>Something-信息<BR>{{!Messaged}}<br>Something-價格<BR>{{!Price}}<br>Something-圖示<BR>{{!Symbol}}<br><br>如果您不知道如何操作，可以聯絡我們，謝謝！<BR>付款完成後請在左下方找到我，將會自動轉到查看交易狀態。~88!!<BR>
+
+
+
+
+PAUSE
+
+
+TAB OPEN
+TAB T=2
+
+
+
+
+
+
+URL GOTO=https://etherscan.io/address/{{!PPad}}
+PROMPT 一般需時5至20分鐘<BR><BR>請耐心等候...<BR>完成交易後請在左下方找到我，將會自動轉到查看Something。~88!!<BR>
+
+
+
+PAUSE
+
+
+TAB T=1
+
+'///AuotTo
+URL GOTO=imacros://run/?m=NewSomething-Not-0.iim
+
+

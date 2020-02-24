@@ -1,0 +1,13 @@
+﻿'///進入據本-Something-Not-1您的交易還未完成
+
+TAB T=2
+REFRESH
+PROMPT <br>您的交易還未完成<br><br>一般需時5至20分鐘<BR><BR>請耐心等候...<BR>完成交易後請在左下方找到我，將會自動轉到查看Something。~88!!<BR><br>如果您不知道如何操作，可以聯絡我們，謝謝！<BR>
+
+
+PAUSE
+
+'///要到取塊
+TAB T=1
+'///AuotTo
+URL GOTO=imacros://run/?m=NewSomething-Not-0.iim

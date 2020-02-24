@@ -1,0 +1,21 @@
+﻿PROMPT 請按"F5"刷新目前頁面，已繼續自動執行<BR><BR>您亦可以點選左上角黑色框內的<SP>Pause(暫停)<SP>或Stop(結束)<BR><BR>轉為手動執行設定
+'///ST0-1///記錄數據
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 1
+'///LOOP次數
+SET !LOOP 1
+SET !EXTRACT_TEST_POPUP NO
+TAB T=1
+
+TAB T=2
+SET !VAR9 {{!URLCURRENT}}
+SET !EXTRACT NULL
+
+TAB T=1
+PROMPT 記錄到帖網址幾?<BR><BR>請填寫1至20 !UL_N
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:UL{{!UL_N}} CONTENT={{!VAR9}}
+
+PROMPT 下載數據=========輸入2<BR><BR>找下一個帖=========輸入0 !SLTA 0
+TAB T=1
+URL GOTO=imacros://run/?m=ST0-{{!SLTA}}.iim

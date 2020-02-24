@@ -1,0 +1,20 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+'///進入據本-SetSomething=管理[Something]
+
+PROMPT <br>請選擇功能:<br><BR>0=Something上架k<BR>將您的Something上架於我們somethingmarket的網站及App，將可加速您的宣傳效果...<BR><BR>1=修改Something資料（信息、價格、圖示）K<BR>(修改[價格]會影響您Value的實際市場價值)...<BR><BR>2=凍結/解凍Value持有人<BR>您只能凍結您的客戶(您的Value持有人)的帳號，他將不能交易您的Value（可交易其他人的Value，也可交易ＳＴＣ，也可交易以太幣）。而您只能凍結，沒有人可以刪除被凍結者地址內的Value或任何資料。<BR>(惡意凍結的行為有可能反令自己被凍結)<BR><BR>9=回到功能列表 !SL 9
+
+TAB T=1
+'///AuotTo
+URL GOTO=imacros://run/?m=SetSomething-{{!SL}}.iim
+
+
+
+

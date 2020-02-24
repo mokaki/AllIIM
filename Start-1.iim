@@ -1,0 +1,3 @@
+﻿'///進入據本-Start-1開設新帳號
+PROMPT <br>進入據本-Start-1開設新帳號
+URL GOTO=imacros://run/?m=NewId.iim

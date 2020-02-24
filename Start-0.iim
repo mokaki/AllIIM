@@ -1,0 +1,5 @@
+﻿'///進入據本-Start-0登入帳戶
+PROMPT <br>進入據本-Start-0登入帳戶
+'///PAUSE
+
+URL GOTO=imacros://run/?m=Loing.iim

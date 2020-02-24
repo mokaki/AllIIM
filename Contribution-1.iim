@@ -1,0 +1,127 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+
+
+'///獲取數據位置
+TAB T=1
+'///SET !VAR0 MyTIT104
+'///TAG POS=1 TYPE=TD ATTR=TXT:{{!VAR0}} EXTRACT=txt
+'///SET !VAR1 {{!EXTRACT}}
+'///set !extract null
+'///有冇-MyTIT104
+'///SET !VAR9 EVAL("var d=\"{{!VAR0}}\"; g=\"{{!VAR1}}\"; if (d==g){var x = \"MyTIT104\";} else {var x=\"*\";} x;") 
+'///TAG POS=1 TYPE=A ATTR=TXT:{{!VAR9}}
+'///WAIT SECONDS=1
+'///TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT104 EXTRACT=txt
+'///SET !VAR0 {{!EXTRACT}}
+'///set !extract null
+'///URL GOTO=http://somethingmarket.org/article.php?id=9
+'///PROMPT <BR>獲取數據位置:<BR>請打開卓面上的[Database]<BR><BR>找到您要使用的[數據塊].txt<BR><BR>複製[數據塊].txt的檔案名稱貼上到這裡'///<BR><BR>不需要[.txt] !DataName {{!VAR0}}
+'///CSV路徑
+'///SET !DATASOURCE {{!DataName}}.txt
+'///SET !DATASOURCE_LINE 1
+
+
+
+
+
+PROMPT <BR>貢獻<BR>Something<SP>Market是沒有任何價值的。<BR>就像[維基百科]的價值來自[百科]一樣，我們的價值來自[Something]<br><BR>您每一次使用Something<SP>Market<br>您的[貢獻值]將會增加，您可隨時查看您每一次的貢獻資料，雖然[貢獻值]未完全符合"ERC-721協定"，但透過日後的完善，有望將此[貢轉]代為[商家代幣]/[記念品]等等...<br><BR>請選擇功能<BR><BR>0=查看每一個貢獻<BR>1=查看自己的貢獻<BR>2=查看自己的[STC]<BR>(屬於您獨一無二的、完全依循"ERC-721協定"的加密代幣~)(由Something<SP>Market發行。)<BR>3=查看自己的[Value]<BR>(屬於您獨一無二的、完全依循"ERC-721協定"的加密代幣~)(由[Something]發行。) !sel 0
+
+
+
+
+
+'///Agree
+URL GOTO=http://somethingmarket.org/Agree.html
+PROMPT <BR>請先同意協議再繼續...
+PAUSE
+
+
+
+
+'///打開合約
+TAB OPEN
+TAB T=2
+URL GOTO=https://www.myetherwallet.com/#contracts
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE>SECTION>DIV>ADDRESS-FIELD>DIV>INPUT" BUTTON=0
+
+
+'///ContractAdd'///ContractAPI
+TAG POS=6 TYPE=INPUT:TEXT ATTR=* CONTENT=0x4dab804a0a2612d38c1ef393798b5d221543b5e7
+EVENTS TYPE=KEYPRESS SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE>SECTION:nth-of-type(3)>TEXTAREA" CHARS="v" MODIFIERS="ctrl,v"
+
+
+'///ToStock(HaveSomething?)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+
+
+
+
+SET !VAR0 {{!sel}}
+set !extract null
+'///if issued==0 NotSomething else HaveSomething
+SET !VAR9 EVAL("var d=\"{{!VAR0}}\"; if (d==0){var x = \"About\";} else {var x=\"MyContribution\";} x;") 
+
+
+
+'///ToAbout(GetPrice)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+TAG POS=1 TYPE=A ATTR=TXT:{{!VAR9}}
+TAG POS=1 TYPE=BUTTON ATTR=TXT:READ
+WAIT SECONDS=2
+
+PAUSE
+
+
+
+
+
+
+
+
+
+
+
+
+
+TAB T=1
+'///AuotToSelect
+URL GOTO=imacros://run/?m=Select.iim
+
+
+
+'///登入官網
+TAB T=1
+URL GOTO=http://somethingmarket.org/user.php?act=profile
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:formLogin ATTR=NAME:password CONTENT={{!COL6}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formLogin ATTR=NAME:username CONTENT={{!COL5}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formLogin ATTR=NAME:username CONTENT={{!COL5}}
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:formLogin ATTR=NAME:password CONTENT={{!COL6}}
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:formLogin ATTR=NAME:submit
+URL GOTO=http://somethingmarket.org/user.php?act=profile
+
+
+'///更新以太錢包地址數據
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT101 CONTENT={{!VAR1}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT102 CONTENT={{!NOW:yyyy-mm-dd-hh-nn-ss}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT104 CONTENT={{!COL2}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT101 CONTENT={{!VAR1}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT102 CONTENT={{!NOW:yyyy-mm-dd-hh-nn-ss}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT104 CONTENT={{!COL2}}
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:formEdit ATTR=NAME:submit
+
+
+
+PROMPT <BR>[{{!COL2}}.txt]<SP>將會記錄您在以太區塊鏈的身份數據，包括您的:<BR>以太钱包地址[{{!COL3}}]及<SP>以太地址金鑰[Private<SP>Key]<BR><BR>您可以隨意將您的<SP>以太钱包地址[{{!COL3}}]<sp>告知任何人。他們將可以跟您社交互動，或者跟您交易。<BR><BR>您必須好好保密[{{!COL2}}.txt]。<BR>任何人只要知到<SP>[{{!COL2}}.txt]<SP>內的<BR><BR>以太地址金鑰<SP>[Private<SP>Key]<BR><BR>即可使用這些以太區塊鏈的身份，包括動用這些身份裡的所有資產。<BR><BR>任何時候，您只需要在電腦卓面找到[Database]。即可以找到<SP>[{{!COL2}}.txt]<BR><BR>您必須定期備份<SP>[{{!COL2}}.txt]。如果您掉失了[{{!COL2}}.txt]，您在[{{!COL2}}.txt]內的所有身份及所有資產都將永遠不能取回。<BR><BR>您只需要隨身攜帶<SP>[{{!COL2}}.txt]<SP>即可在任何電腦上使用您的這些身份。<BR>
+
+
+

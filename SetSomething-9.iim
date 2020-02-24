@@ -1,0 +1,8 @@
+﻿'///進入據本-SetSomething-9
+
+PROMPT <br>進入據本-SetSomething-9回到功能列表<BR>
+
+TAB T=1
+'///AuotToSelect
+URL GOTO=imacros://run/?m=Select.iim
+

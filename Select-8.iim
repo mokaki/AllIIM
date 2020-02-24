@@ -1,0 +1,26 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+'///進入據本-Select
+TAB T=1
+
+
+PROMPT <BR>4=開設[Something]-公開測試中...<BR>任何人都可以將自己的以太錢包地址設置為Something，你可以用他收取以太幣，跟世界各地的顧客交易，也可用作募集以太幣、發行您的虛擬代幣[Value]、交易虛擬代幣[Value]、[STC]等。<BR>(為了表示謝意，每一個開設[Something]的以太錢包地址將會收益最少一個STC。)<BR><BR>5=管理[Something]-部份公開測試中...<BR>您的[Something]永遠不會失效，任何時候您都可以使用這個功能管理、保護、您的[Something]，或者修改他的價值[Value兌以太幣的比率]。<BR>(為了表示謝意，每一次管理[Something]，該以太錢包地址將會收益最少一個STC。)<BR><BR>6=交易Value或STC<BR>您可以使用這個功能交易您所發行的虛擬代幣[Value]或[STC](我們SomethingMarket發行的虛擬代幣[STC](Something<sp>capability)<sp>)<BR><BR>7=查看貢獻<br>您可以使用這個功能查看SomethingMarket的所有交易記錄，任何人只要使用我們的服務，都會永遠地留下記錄，任何人任何時候不需任何資料門檻都可以查看。<BR><BR>8=上一頁(0購入以太幣、1發出以太幣、2一鍵付款到Something、3自動發送廣告。)<BR>9=自由活動 !SL 9
+
+
+
+
+
+
+TAB T=1
+'///AuotTo
+URL GOTO=imacros://run/?m=Select-8-{{!SL}}.iim
+
+
+

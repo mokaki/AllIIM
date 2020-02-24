@@ -1,0 +1,94 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+'///進入據本-NewSomething-Not-4
+
+
+
+
+'///現在身份
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+'///CSV路徑
+SET !DATASOURCE {{!VAR0}}.txt
+SET !DATASOURCE_LINE 1
+
+
+
+
+'///ETHToSzabo(GetPrice)
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:ether EXTRACT=txt
+SET !VAR2 {{!EXTRACT}}
+set !extract null
+
+
+PROMPT <br>開設Something-名稱<BR><br>您現在使用的數據塊[{{!COL2}}.txt]<BR><br>您現在使用的以太钱包地址[{{!COL3}}]<br><br>開設Something需要{{!VAR2}}ETH/個以太幣<br><br>請輸入[Something]名稱，這名稱將會永久地記錄在以太網絡區塊之中，沒有人能夠修改他。<BR><BR>如果您是經營店鋪，這可以是您的店舖名稱。如果你要籌辦一個活動(例如您想募集以太幣)，這就是活動的名稱。<BR><BR>如果您不代表任何人，其實您可以使用任何符號寫上代表您自己的東西<br><br>注意~!!!這是不能修改的<sp>注意~!!!這是不能修改的<sp>注意~!!!這是不能修改的<BR> !PPname any🐳🐳🐳(╯‵□′)╯︵┴─┴...
+
+
+PROMPT <br>開設Something-信息<BR><br>您現在使用的數據塊[{{!COL2}}.txt]<BR><br>您現在使用的以太钱包地址[{{!COL3}}]<br><br>開設Something需要{{!VAR2}}ETH/個以太幣<br><br>請輸入[Something]信息<BR>[如果別人想了解您更多<sp>應該去那裡呢?]<BR><BR>這個可以是您公司的地址<sp>/<sp>直播節目的網址<sp>/<sp>您的淘寶店<sp>/<sp>微信號<sp>/<sp>手機號碼或一段任何文字的短句甚至是任何程式碼都可以...<BR><BR>這將會永久地記錄在區塊之中，而且<SP>只有您自己<SP>[{{!COL3}}]<SP>可以修改他。 !Messaged http://www....any....
+
+
+PROMPT <br>開設Something-價格<BR><br>您現在使用的數據塊[{{!COL2}}.txt]<BR><br>您現在使用的以太钱包地址[{{!COL3}}]<br><br>開設Something需要{{!VAR2}}ETH/個以太幣<br><br>請輸入價格<BR><BR>這是您[Something]的［最低收費價格］，<BR><BR>如果您正在出售一件產品，這就是您產品標價。<BR><BR>如果您是一個網絡主播，這就是您客人給您的[節目收費]。<BR><BR>如果您的[Something]是一個籌款活動,這就是每一次最低捐款金額。<BR><BR>您的[Something]將會為您帶來更多的[價值]<BR><BR>日後您可使用設定功能控制您自己的[價值]。<BR><BR>價格用[<sp>Szabo<sp>]計算<BR><BR>1000000(一百萬)個[<sp>Szabo<sp>]=1個ETH(以太幣)<BR>1個[<sp>Szabo<sp>]=0.000001個ETH(以太幣)<BR><BR>可以是０或以上（包括０）的任何數字。<BR><BR>如果您有需要暫時凍結[Something]，您可以輸入負數，這樣別人將暫時不能付款給您的[Something]。<BR><BR>您可以隨時修改<BR>　!Price 1
+
+
+PROMPT <br>開設Something-圖示<BR><br>您現在使用的數據塊[{{!COL2}}.txt]<BR><br>您現在使用的以太钱包地址[{{!COL3}}]<br><br>開設Something需要{{!VAR2}}ETH/個以太幣<br><br>請輸入發行品符號<BR><BR>會顯示於[Something]上的圖示<BR><BR>可以是任何圖片的網址<BR><BR>您可用於展示您產品/禮券的QRcode<BR><BR>或純粹的一個徽章<BR><BR>這裡可以填寫任何文字甚至是任何程式碼都可以<BR><BR>這將會永久地記錄在區塊之中，而且<SP>只有您自己<SP>[{{!COL3}}]<SP>可以修改他。 !Symbol http://....
+
+
+
+
+
+PAUSE
+
+
+'///獲取地址以太幣儲存量
+TAB OPEN
+TAB T=2
+URL GOTO=https://www.myetherwallet.com/#view-wallet-info
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:183
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:aria8 CONTENT={{!COL3}}
+TAG POS=1 TYPE=A ATTR=TXT:View<SP>Balance
+WAIT SECONDS=3
+TAG POS=1 TYPE=LI ATTR=TXT:*ETH EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+TAB CLOSE
+TAB T=1
+'///ToAbout(GetPrice)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+TAG POS=1 TYPE=A ATTR=TXT:About
+TAG POS=1 TYPE=BUTTON ATTR=TXT:READ
+WAIT SECONDS=2
+TAG POS=14 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR2 {{!EXTRACT}}
+set !extract null
+TAB OPEN
+TAB T=2
+'///ETHToSzabo
+URL GOTO=https://converter.murkin.me/
+TAG POS=1 TYPE=INPUT:TEXT FORM=ID:input-form ATTR=ID:value-input CONTENT={{!VAR2}}
+TAG POS=1 TYPE=SELECT FORM=ID:input-form ATTR=ID:value-type CONTENT=%szabo
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:ether EXTRACT=txt
+SET !VAR2 {{!EXTRACT}}
+set !extract null
+
+
+
+
+PAUSE
+
+
+
+
+
+
+
+'///AuotToSelect
+URL GOTO=imacros://run/?m=NewSomething-Not-{{!SL}.iim

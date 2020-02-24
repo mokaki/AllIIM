@@ -1,0 +1,80 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+'///進入據本-回到NewSomething
+
+
+
+'///現在身份
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+
+
+
+'///CSV路徑
+SET !DATASOURCE {{!VAR0}}.txt
+SET !DATASOURCE_LINE 1
+
+
+'///獲取數據位置
+TAB T=-1
+set !extract null
+URL GOTO=http://somethingmarket.org/article.php?id=9
+PROMPT <BR>獲取數據位置:<BR>請打開卓面上的[Database]<BR><BR>找到您要使用的[數據塊].txt<BR><BR>複製[數據塊].txt的檔案名稱貼上到這裡<BR><BR>不需要[.txt] !DataName {{!VAR0}}
+
+
+'///CSV路徑
+SET !DATASOURCE {{!DataName}}.txt
+SET !DATASOURCE_LINE 1
+
+
+'///Agree
+URL GOTO=http://somethingmarket.org/Agree.html
+PROMPT <BR>請先同意協議再繼續...
+
+PAUSE
+
+
+
+
+TAB T=0
+URL GOTO=https://www.myetherwallet.com/#contracts
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE>SECTION>DIV>ADDRESS-FIELD>DIV>INPUT" BUTTON=0
+
+
+
+'///ContractAdd'///ContractAPI
+TAG POS=6 TYPE=INPUT:TEXT ATTR=* CONTENT=0x4dab804a0a2612d38c1ef393798b5d221543b5e7
+EVENTS TYPE=KEYPRESS SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE>SECTION:nth-of-type(3)>TEXTAREA" CHARS="v" MODIFIERS="ctrl,v"
+
+
+
+'///ToStock(HaveSomething?)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+TAG POS=1 TYPE=A ATTR=TXT:Stock
+TAG POS=7 TYPE=INPUT:TEXT ATTR=* CONTENT={{!COL3}}
+TAG POS=1 TYPE=BUTTON ATTR=TXT:READ
+WAIT SECONDS=2
+
+'///PP_all_issued
+TAG POS=13 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR6 {{!EXTRACT}}
+set !extract null
+'///if issued==0 NotSomething else HaveSomething
+SET !VAR9 EVAL("var d=\"{{!VAR6}}\"; if (d==0){var x = \"NewSomething-Not-1.iim\";} else {var x=\"NewSomething-Not-2.iim\";} x;") 
+
+
+TAB T=1
+'///AuotToSelect
+URL GOTO=imacros://run/?m={{!VAR9}}
+
+
+

@@ -1,0 +1,29 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE<sp>
+
+'///進入據本-Select
+TAB T=1
+
+
+
+
+PROMPT <BR>0=購入以太幣-公開測試中...<BR><sp><sp><sp><sp>您可以使用最簡單的方式購買以太幣。(招募合作商戶中...)<BR><BR>1=發出以太幣-公開測試中...<BR><sp><sp><sp><sp>使用安全可靠的開源系統[myetherwallet]操作。(手機平台交易系統開發中...)<BR><BR>2=一鍵付款到Something[購買Something的Value]-公開測試中...<BR><sp><sp><sp><sp>使用本司開發的智能合約[Something<SP>Market]作交易媒介。<BR><BR>3=自動發送廣告<BR><sp><sp><sp><sp>ε٩(๑><sp>₃<sp><)۶з(系統開發中...)<BR><BR>8=下一頁(4開設Something、5管理Something、6交易Value或STC、7查看貢獻。)<BR>9=自由活動 !SL 9
+
+
+
+
+
+
+TAB T=1
+'///AuotTo
+URL GOTO=imacros://run/?m=Select-{{!SL}}.iim
+
+
+

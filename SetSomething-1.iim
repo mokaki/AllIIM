@@ -1,0 +1,185 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+'///進入據本-SetSomething-1
+
+
+'///獲取數據位置
+TAB T=1
+SET !VAR0 MyTIT104
+TAG POS=1 TYPE=TD ATTR=TXT:{{!VAR0}} EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+'///有冇-MyTIT104
+SET !VAR9 EVAL("var d=\"{{!VAR0}}\"; g=\"{{!VAR1}}\"; if (d==g){var x = \"MyTIT104\";} else {var x=\"*\";} x;") 
+TAG POS=1 TYPE=A ATTR=TXT:{{!VAR9}}
+WAIT SECONDS=1
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT104 EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+URL GOTO=http://somethingmarket.org/article.php?id=9
+PROMPT <BR>獲取數據位置:<BR>請打開卓面上的[Database]<BR><BR>找到您要使用的[數據塊].txt<BR><BR>複製[數據塊].txt的檔案名稱貼上到這裡<BR><BR>不需要[.txt] !DataName {{!VAR0}}
+
+
+'///CSV路徑
+SET !DATASOURCE {{!DataName}}.txt
+SET !DATASOURCE_LINE 1
+
+
+'///Agree
+URL GOTO=http://somethingmarket.org/Agree.html
+PROMPT <BR>請先同意協議再繼續...
+PAUSE
+TAB OPEN
+TAB T=2
+
+
+'///獲取地址以太幣儲存量
+URL GOTO=https://www.myetherwallet.com/#view-wallet-info
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:183
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:aria8 CONTENT={{!COL3}}
+TAG POS=1 TYPE=A ATTR=TXT:View<SP>Balance
+WAIT SECONDS=3
+TAG POS=1 TYPE=LI ATTR=TXT:*ETH EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+
+
+'///GoToContract
+URL GOTO=https://www.myetherwallet.com/#contracts
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE>SECTION>DIV>ADDRESS-FIELD>DIV>INPUT" BUTTON=0
+
+
+'///ContractAdd'///ContractAPI
+TAG POS=6 TYPE=INPUT:TEXT ATTR=* CONTENT=0x4dab804a0a2612d38c1ef393798b5d221543b5e7
+EVENTS TYPE=KEYPRESS SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE>SECTION:nth-of-type(3)>TEXTAREA" CHARS="v" MODIFIERS="ctrl,v"
+
+
+'///ToAbout(GetPrice)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+TAG POS=1 TYPE=A ATTR=TXT:About
+TAG POS=1 TYPE=BUTTON ATTR=TXT:READ
+WAIT SECONDS=2
+TAG POS=14 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+
+
+'///ToStock(SomethingData)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+TAG POS=1 TYPE=A ATTR=TXT:Stock
+TAG POS=7 TYPE=INPUT:TEXT ATTR=* CONTENT={{!COL3}}
+TAG POS=1 TYPE=BUTTON ATTR=TXT:READ
+WAIT SECONDS=2
+
+
+
+'///PP_name 
+TAG POS=8 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR2 {{!EXTRACT}}
+set !extract null
+'///PP_symbol
+TAG POS=10 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR3 {{!EXTRACT}}
+set !extract null
+'///PP_price
+TAG POS=11 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR4 {{!EXTRACT}}
+set !extract null
+'///PP_all_income
+TAG POS=12 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR5 {{!EXTRACT}}
+set !extract null
+'///PP_all_issued
+TAG POS=13 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR6 {{!EXTRACT}}
+set !extract null
+'///PP_value_ratio
+TAG POS=14 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR7 {{!EXTRACT}}
+set !extract null
+'///PP_message
+TAG POS=9 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR8 {{!EXTRACT}}
+set !extract null
+
+
+
+
+TAB OPEN
+TAB T=3
+
+
+'///ETHToSzabo
+URL GOTO=https://converter.murkin.me/
+TAG POS=1 TYPE=INPUT:TEXT FORM=ID:input-form ATTR=ID:value-input CONTENT={{!VAR0}}
+TAG POS=1 TYPE=SELECT FORM=ID:input-form ATTR=ID:value-type CONTENT=%szabo
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:ether EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+
+'///現在身份
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei CONTENT={{!COL2}}
+
+
+
+
+
+'///輸入-START資料
+PROMPT <br>修改Something資料-信息<BR><br>數據塊[{{!COL2}}.txt]，以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，修改Something需要{{!VAR0}}ETH/個以太幣<br><br>現在您的Something資料<BR><BR>名稱[{{!VAR2}}](不能修改)<BR>價格[{{!VAR4}}]Szabo<BR>信息[{{!VAR8}}]<BR>圖示[{{!VAR3}}]<BR><BR>總收入[{{!VAR5}}]Szabo<br>已發行[{{!VAR6}}]個Value<br>1Value=[{{!VAR7}}]Szabo<br><br>請填寫新信息 !msg {{!VAR8}}
+
+
+PROMPT <br>修改Something資料-圖示<BR><br>數據塊[{{!COL2}}.txt]，以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，修改Something需要{{!VAR0}}ETH/個以太幣<br><br>現在您的Something資料<BR><BR>名稱[{{!VAR2}}](不能修改)<BR>價格[{{!VAR4}}]Szabo<BR>信息[{{!msg}}]<BR>圖示[{{!VAR3}}]<BR><BR>總收入[{{!VAR5}}]Szabo<br>已發行[{{!VAR6}}]個Value<br>1Value=[{{!VAR7}}]Szabo<br><br>請填寫新圖片網址 !img {{!VAR3}}
+
+
+PROMPT <br>修改Something資料-價格<BR><br>數據塊[{{!COL2}}.txt]，以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，修改Something需要{{!VAR0}}ETH/個以太幣<br><br>現在您的Something資料<BR><BR>名稱[{{!VAR2}}](不能修改)<BR>價格[{{!VAR4}}]Szabo<BR>信息[{{!msg}}]<BR>圖示[{{!img}}]<BR><BR>總收入[{{!VAR5}}]Szabo<br>已發行[{{!VAR6}}]個Value<br>1Value=[{{!VAR7}}]Szabo<br><br>請填寫新價格(修改價格會影響您Value的實際市場價值) !pic {{!VAR4}}
+
+
+PROMPT <br>修改Something資料-資料確認<BR><br>數據塊[{{!COL2}}.txt]，以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，修改Something需要{{!VAR0}}ETH/個以太幣<br><br>資料確認<BR><BR>名稱[{{!VAR2}}](不能修改)<BR>價格[{{!pic}}]Szabo<BR>信息[{{!msg}}]<BR>圖示[{{!img}}]<br><BR>總收入[{{!VAR5}}]Szabo<br>已發行[{{!VAR6}}]個Value<br>1Value=[{{!VAR7}}]Szabo<br><br>
+
+
+
+
+TAB T=2
+'///Goto setting Stock
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE:nth-of-type(2)>SECTION>SPAN>DIV:nth-of-type(3)>A" BUTTON=0
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE:nth-of-type(2)>SECTION>SPAN>DIV:nth-of-type(3)>UL>LI:nth-of-type(9)>A" BUTTON=0
+'///If_You_Want_Change_Your_stock_data_please_select_true(true*1=只修改資料)
+TAG POS=1 TYPE=LABEL ATTR=TXT:True
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:optradio-If_You_Want_Change_Your_stock_data_please_select_true
+
+
+TAG POS=7 TYPE=INPUT:TEXT ATTR=* CONTENT={{!Pic}}
+TAG POS=8 TYPE=INPUT:TEXT ATTR=* CONTENT={{!msg}}
+TAG POS=9 TYPE=INPUT:TEXT ATTR=* CONTENT={{!img}}
+
+
+'///打開錢包!!!!!
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:237
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:aria6 CONTENT={{!COL4}}
+TAG POS=1 TYPE=A ATTR=TXT:Unlock
+TAG POS=1 TYPE=BUTTON ATTR=TXT:WRITE
+
+PROMPT <br>修改Something資料<br>停止自動執行~!!!<br>您正在付款~!!!<BR>如果您沒有打算支付任何費用，請立即關閉本程式~!!!<BR><BR>數據塊[{{!COL2}}.txt]<BR>以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣，修改Something需要{{!VAR0}}ETH/個以太幣<br><br>Something-名稱<BR>{{!VAR2}}<br>Something-信息<BR>{{!msg}}<br>Something-圖示<BR>{{!img}}<br>Something-價格<BR>{{!Pic}}<br><br>如果您不知道如何操作，可以聯絡我們，謝謝！<BR>付款完成後請在左下方找到我，將會自動轉到查看交易狀態。~88!!<BR>
+PAUSE
+
+TAB T=4
+URL GOTO=https://etherscan.io/address/{{!COL3}}
+PROMPT 一般需時5至20分鐘<BR><BR>請耐心等候...<BR>完成交易後請在左下方找到我，將會自動轉到查看Something。~88!!<BR>
+PAUSE
+
+
+TAB T=3
+
+
+'///AuotTo
+URL GOTO=imacros://run/?m=NewSomething-Not-0.iim
+

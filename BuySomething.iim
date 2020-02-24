@@ -1,0 +1,157 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+
+'///進入據本-Select-2=一鍵付款到Something
+
+'///獲取數據位置
+TAB T=1
+SET !VAR0 MyTIT104
+TAG POS=1 TYPE=TD ATTR=TXT:{{!VAR0}} EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+'///有冇-MyTIT104
+SET !VAR9 EVAL("var d=\"{{!VAR0}}\"; g=\"{{!VAR1}}\"; if (d==g){var x = \"MyTIT104\";} else {var x=\"*\";} x;") 
+TAG POS=1 TYPE=A ATTR=TXT:{{!VAR9}}
+WAIT SECONDS=1
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT104 EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+URL GOTO=http://somethingmarket.org/article.php?id=9
+PROMPT <BR>獲取數據位置:<BR>請打開卓面上的[Database]<BR><BR>找到您要使用的[數據塊].txt<BR><BR>複製[數據塊].txt的檔案名稱貼上到這裡<BR><BR>不需要[.txt] !DataName {{!VAR0}}
+
+
+'///CSV路徑
+SET !DATASOURCE {{!DataName}}.txt
+SET !DATASOURCE_LINE 1
+
+
+'///Agree
+URL GOTO=http://somethingmarket.org/Agree.html
+PROMPT <BR>請先同意協議再繼續...
+PAUSE
+TAB OPEN
+TAB T=2
+
+
+'///獲取地址以太幣儲存量
+URL GOTO=https://www.myetherwallet.com/#view-wallet-info
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:183
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:aria8 CONTENT={{!COL3}}
+TAG POS=1 TYPE=A ATTR=TXT:View<SP>Balance
+WAIT SECONDS=3
+TAG POS=1 TYPE=LI ATTR=TXT:*ETH EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+
+
+'///GoToContract
+URL GOTO=https://www.myetherwallet.com/#contracts
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE>SECTION>DIV>ADDRESS-FIELD>DIV>INPUT" BUTTON=0
+
+
+'///ContractAdd'///ContractAPI
+TAG POS=6 TYPE=INPUT:TEXT ATTR=* CONTENT=0x4dab804a0a2612d38c1ef393798b5d221543b5e7
+EVENTS TYPE=KEYPRESS SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE>SECTION:nth-of-type(3)>TEXTAREA" CHARS="v" MODIFIERS="ctrl,v"
+
+
+PROMPT <BR>請問您要付款到那一個Something?<BR><BR>請填寫Something的地址<BR>(如果填寫的地址不是Something,將會無法付款。)<BR><BR>您可以付款給自己。<BR><BR>我們不收取任何服務費。但由於使用以太區塊鏈交易，您付款時將需要支付名為<SP>GAS<SP>的交易費用...)　!PP_address 0x0..
+
+
+'///ToStock(SomethingData)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+TAG POS=1 TYPE=A ATTR=TXT:Stock
+TAG POS=7 TYPE=INPUT:TEXT ATTR=* CONTENT={{!PP_address}}
+TAG POS=1 TYPE=BUTTON ATTR=TXT:READ
+WAIT SECONDS=2
+
+
+'///PP_name 
+TAG POS=8 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR2 {{!EXTRACT}}
+set !extract null
+'///PP_symbol
+TAG POS=10 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR3 {{!EXTRACT}}
+set !extract null
+'///PP_price
+TAG POS=11 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR4 {{!EXTRACT}}
+set !extract null
+'///PP_all_income
+TAG POS=12 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR5 {{!EXTRACT}}
+set !extract null
+'///PP_all_issued
+TAG POS=13 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR6 {{!EXTRACT}}
+set !extract null
+'///PP_value_ratio
+TAG POS=14 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR7 {{!EXTRACT}}
+set !extract null
+'///PP_message
+TAG POS=9 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR8 {{!EXTRACT}}
+set !extract null
+
+
+TAB T=3
+'///ETHToSzabo
+URL GOTO=https://converter.murkin.me/
+TAG POS=1 TYPE=INPUT:TEXT FORM=ID:input-form ATTR=ID:value-input CONTENT={{!VAR4}}
+TAG POS=1 TYPE=SELECT FORM=ID:input-form ATTR=ID:value-type CONTENT=%szabo
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:ether EXTRACT=txt
+SET !VAR4 {{!EXTRACT}}
+set !extract null
+
+
+'///現在身份
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei CONTENT={{!COL2}}
+
+
+TAB T=2
+PROMPT <BR>一鍵付款到Something<BR><BR>數據塊[{{!COL2}}.txt]，以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣<BR><BR>您正準備付款到這個Something:<BR><BR>名稱[{{!VAR2}}]<BR>最低收費價格[{{!VAR4}}]ETH(以太幣)<BR>最低收費價格不設小數，如果您沒打算給這個Something小費，請您支付相同倍數的費用。假設現在的[最低收費價格]是3000Szabo。即您最少需要0.003ETH(以太幣)<BR><BR>或0.006購買兩份...如果您支付的費用不足[最低收費價格],交易將無法執行。如果您支付的費用超過[最低收費價格]的價格但不足兩份(如0.005ETH)，餘款將不會退還（多出費用會作為小費，全部給予這個Something）。<BR><BR>價格用[<sp>Szabo<sp>]計算<BR>1000000(一百萬)個[<sp>Szabo<sp>]=1個ETH(以太幣)<BR>1個[<sp>Szabo<sp>]=0.000001個ETH(以太幣)<BR><BR>[Value]分配比率<BR>當您付款的數量足夠[最低收費價格]，這個Something將會自動發行[Value],[Value]的分配率固定為<BR>BigBoss=5<SP>/<SP>這個Something的主人=53<SP>/<SP>您=42
+
+
+
+'///Goto setting Stock
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE:nth-of-type(2)>SECTION>SPAN>DIV:nth-of-type(3)>A" BUTTON=0
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>SECTION>DIV>MAIN>ARTICLE:nth-of-type(2)>SECTION>SPAN>DIV:nth-of-type(3)>UL>LI:nth-of-type(3)>A" BUTTON=0
+TAG POS=7 TYPE=INPUT:TEXT ATTR=* CONTENT={{!PP_address}}
+
+
+
+'///打開錢包!!!!!
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:237
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:aria6 CONTENT={{!COL4}}
+TAG POS=1 TYPE=A ATTR=TXT:Unlock
+TAG POS=1 TYPE=BUTTON ATTR=TXT:WRITE
+
+
+PROMPT <br>一鍵付款到Something<BR><BR>停止自動執行~!!!Σ(*ﾟдﾟﾉ)ﾉΣ(*ﾟдﾟﾉ)ﾉ<br>您正在付款~!!!(((ﾟДﾟ;)))(((ﾟДﾟ;)))<BR>如果您沒有打算支付任何費用，請立即關閉本程式~!!!(╬☉д⊙)(╬☉д⊙)<BR><BR>數據塊[{{!COL2}}.txt]<BR>以太钱包地址[{{!COL3}}]<br>現有{{!VAR1}}/個以太幣<BR><BR>這Something的最低收費價格是{{!VAR4}}ETH/個以太幣<br><br>Something-名稱<BR>{{!VAR2}}<br>Something-地址<BR>{{!PP_address}}<br><br>如果您不知道如何操作，可以聯絡我們，謝謝！<BR>付款完成後請在左下方找到我，將會自動轉到查看交易狀態。~88!!<BR>
+
+
+PAUSE
+TAB OPEN
+TAB T=4
+
+
+URL GOTO=https://etherscan.io/address/{{!PPad}}
+PROMPT 一般需時5至20分鐘<BR><BR>請耐心等候...<BR>完成交易後請在左下方找到我，將會自動轉到功能列表。~88!!<BR>
+
+
+PAUSE
+TAB T=3
+'///AuotTo
+URL GOTO=imacros://run/?m=Select.iim
+
+

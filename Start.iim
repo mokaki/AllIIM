@@ -1,0 +1,11 @@
+﻿'///進入據本-Start
+TAB T=1
+'///PAUSE NeedAPI
+
+TAB T=2
+TAB CLOSE
+PROMPT <BR>歡迎您使用<BR><BR>Something<sp>Market<BR><BR>最易用、最安全、最快捷的網上交易系統**(可能係)。<BR><BR>請選擇<BR><BR>0=登入帳號<BR><BR>1=開設新帳號<BR><BR>3=將現在以太地址綁定帳號<BR>**(如果您不知道用途，請不要使用此項。)<BR> !SL 0
+
+
+URL GOTO=imacros://run/?m=Start-{{!SL}}.iim
+

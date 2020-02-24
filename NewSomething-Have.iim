@@ -1,0 +1,81 @@
+﻿'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///LOOP次數
+'///SET !LOOP 1
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+'///進入據本-NewSomething-Have
+
+TAB T=2
+'///現在身份
+
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+
+'///CSV路徑
+SET !DATASOURCE {{!VAR0}}.txt
+SET !DATASOURCE_LINE 1
+set !extract null
+PROMPT <BR>獲取數據位置:<BR>請打開卓面上的[Database]<BR><BR>找到您要使用的[數據塊].txt<BR><BR>複製[數據塊].txt的檔案名稱貼上到這裡<BR><BR>不需要[.txt] !DataName {{!VAR0}}
+
+
+'///CSV路徑
+SET !DATASOURCE {{!DataName}}.txt
+SET !DATASOURCE_LINE 1
+
+
+
+TAB T=1
+'///ToStock(HaveSomething?)
+TAG POS=1 TYPE=BUTTON ATTR=TXT:Access
+TAG POS=1 TYPE=A ATTR=TXT:Stock
+TAG POS=7 TYPE=INPUT:TEXT ATTR=* CONTENT={{!COL3}}
+TAG POS=1 TYPE=BUTTON ATTR=TXT:READ
+WAIT SECONDS=2
+
+
+'///PP_name 
+TAG POS=8 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR2 {{!EXTRACT}}
+set !extract null
+'///PP_symbol
+TAG POS=10 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR3 {{!EXTRACT}}
+set !extract null
+'///PP_price
+TAG POS=11 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR4 {{!EXTRACT}}
+set !extract null
+'///PP_all_income
+TAG POS=12 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR5 {{!EXTRACT}}
+set !extract null
+'///PP_all_issued
+TAG POS=13 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR6 {{!EXTRACT}}
+set !extract null
+'///PP_value_ratio
+TAG POS=14 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR7 {{!EXTRACT}}
+set !extract null
+'///PP_message
+TAG POS=9 TYPE=INPUT:TEXT ATTR=* EXTRACT=txt
+SET !VAR8 {{!EXTRACT}}
+set !extract null
+
+
+'///進入據本-NewSomething-Have
+PROMPT <br>您的Something資料<BR><br>名稱=[{{!VAR2}}]<br>圖示=[{{!VAR3}}]<br>價格=[{{!VAR4}}]Szabo<br>總收入=[{{!VAR5}}]Szabo<br>已發行=[{{!VAR6}}]個Value<br>1Value=[{{!VAR7}}]Szabo<br>信息=[{{!VAR8}}]
+
+
+
+TAB T=2
+
+'///現在身份
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:wei CONTENT={{!COL2}}
+
+URL GOTO=imacros://run/?m=UpSomething.iim

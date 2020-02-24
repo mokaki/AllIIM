@@ -1,0 +1,9 @@
+﻿
+
+'///進入據本-UpSomething-1
+
+PROMPT <br>進入據本-UpSomething-1=管理[Something]<BR>
+
+TAB T=1
+'///AuotToSelect
+URL GOTO=imacros://run/?m=SetSomething.iim

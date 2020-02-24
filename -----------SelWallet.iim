@@ -1,0 +1,63 @@
+﻿'///進入據本-使用現有的以太錢包
+
+'///ST///不提示一般錯誤
+SET !ERRORIGNORE YES
+
+'///每行等待時間
+'///SET !TIMEOUT_STEP 3
+
+'///LOOP次數
+'///SET !LOOP 1
+
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+'///PAUSE
+
+PROMPT <BR><BR>請打開卓面上的[Database]<BR><BR>找到您要使用的[數據塊.txt]<BR><BR>複製[數據塊.txt]的檔案名稱貼上到這裡<BR><BR>[不需要.txt] !DataName ....
+
+
+
+'///CSV路徑
+SET !DATASOURCE {{!DataName}}.txt
+SET !DATASOURCE_LINE 1
+
+
+'///獲取地址以太幣儲存量
+TAB T=1
+URL GOTO=https://www.myetherwallet.com/#view-wallet-info
+TAG POS=1 TYPE=IMG ATTR=SRC:https://www.myetherwallet.com/images/icon-x.svg
+TAG POS=1 TYPE=INPUT:RADIO ATTR=NAME:183
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:aria8 CONTENT={{!COL3}}
+TAG POS=1 TYPE=A ATTR=TXT:View<SP>Balance
+WAIT SECONDS=3
+TAG POS=1 TYPE=LI ATTR=TXT:*ETH EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+
+
+'///登入官網
+URL GOTO=http://somethingmarket.org/user.php?act=profile
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:formLogin ATTR=NAME:password CONTENT={{!COL3}}{{!COL2}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formLogin ATTR=NAME:username CONTENT={{!COL3}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formLogin ATTR=NAME:username CONTENT={{!COL3}}
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:formLogin ATTR=NAME:password CONTENT={{!COL3}}{{!COL2}}
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:formLogin ATTR=NAME:submit
+URL GOTO=http://somethingmarket.org/user.php?act=profile
+
+
+'///更新以太錢包地址數據
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT101 CONTENT={{!VAR1}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT102 CONTENT={{!NOW:yyyy-mm-dd-hh-nn-ss}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT101 CONTENT={{!VAR1}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:formEdit ATTR=ID:MyTIT102 CONTENT={{!NOW:yyyy-mm-dd-hh-nn-ss}}
+TAG POS=1 TYPE=INPUT:SUBMIT FORM=NAME:formEdit ATTR=NAME:submit
+
+
+
+
+PROMPT <BR><BR>您正在使用的創世區塊是:<BR>{{!VAR0}}<BR><BR>這個以太钱包地址的原始字符:<BR>{{!COL2}}<BR><BR>這個以太钱包地址:<BR>{{!COL1}}<BR><BR>這個以太地址密鑰:<BR>{{!COL3}}<BR><BR>這個以太钱包地址的以太幣存量為:<BR>{{!VAR1}}<BR><br>請選擇:<BR>0=充值以太幣<BR>1=發送以太幣<BR>2=一鍵付款到Something<BR>3=自動發送廣告<BR><BR>付費功能:<BR>4=開設[Something]:<BR>任何人都可以將自己的以太錢包地址設置為Something，你可以用他收取以太幣，跟世界各地的顧客交易，也可用作募集以太幣、發行虛擬代幣、交易虛擬代幣等。<BR>(為了表示謝意，每一個開設[Something]的以太錢包地址將會收益最少一個STC。)<BR><BR>5=管理[Something]：<BR>您的[Something]永遠不會失效，任何時候您都可以使用這個功能管理、保護、您的[Something]，或者修改他的價值。<BR>(為了表示謝意，每一次管理[Something]，該以太錢包地址將會收益最少一個STC。)<BR><BR>6=交易虛擬代幣或STC:<BR>您可以使用這個功能交易您所發行的虛擬代幣或交易[STC](我們SomethingMarket發行虛擬代幣[STC](Something<sp>capability)<sp>)<BR>
+
+
+
+PAUSE

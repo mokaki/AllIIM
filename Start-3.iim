@@ -1,0 +1,5 @@
+﻿'///進入據本-Start-3將現在以太地址綁定帳號
+PROMPT <br>進入據本-Start-3將現在以太地址綁定帳號
+'///PAUSE
+
+URL GOTO=imacros://run/?m=Connected.iim
