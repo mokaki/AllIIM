@@ -1,0 +1,73 @@
+'///進入據本<BR>您的ID<BR>'///_Atw0_Start<BR>_Atw0_Start<BR>
+
+'///'///'///'///'///'///'///'///
+'///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+    '///'///'///'///'///'///'///'///
+    '///LOOP次數
+    '///SET !LOOP 1
+    '///PAUSE
+    '///TAB CLOSEALLOTHERS
+    '///TAB CLOSE
+    '///'///'///'///'///'///'///'///    
+    '///PROMPT <BR>'///修改完'///<BR>NTENT=file:///{{!COL3}}Pag<BR>
+    '///PAUSE
+    '///PROMPT <BR>_AtwEND
+    '///URL GOTO=imacros://run/?m=_Atw/_AtwEND.iim
+    '///URL GOTO=file:///{{!VAR1}}Page/_AtwHomePage.html
+    '///'///'///'///'///'///'///'///
+
+
+
+'///您的ID套裝
+TAB T=1
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+
+
+PROMPT <BR>您的ID<BR> !walletOVG {{!VAR0}}
+
+
+
+
+SET !DATASOURCE {{!walletOVG}}.txt
+SET !DATASOURCE_LINE 1
+
+URL GOTO=file:///{{!COL2}}Page/_AtwHomePage.html
+
+
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox  CONTENT={{!walletOVG}}
+'///查{{!COL3}}有冇轉A
+TAG POS=1 TYPE=INPUT ATTR=ID:GetId  CONTENT={{!COL3}}
+WAIT SECONDS=1
+TAG POS=1 TYPE=INPUT ATTR=ID:GetId EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+SET !VAR9 EVAL("var s=\"{{!VAR0}}\"; s.split('\')[0];")
+SET !EXTRACT NULL
+
+'///您的ID套裝END
+
+
+
+
+
+'///PROMPT <BR>'///說明'///<BR>由Bat打開，或其他iim轉來<BR><SP>BAT=_Atw.bat<BR><SP>IIM=_Atw0_Start.iim<BR>PAGE=file:///{{!COL2}}Page/_AtwHomePage.html<BR><BR>***>END<***<BR>GOTO=imacros://run/?m=_Atw/_Atw0_Seles_{{!VAR9}}.iim<BR>GOTO=file:///{{!COL2}}Page/_AtwHomePage.html<BR><BR>用_AtwHomePage.html>ID:GetId<BR>'///查{{!COL3}}有冇轉A<BR>_Atw0_Seles_.iim|開AC<BR>_Atw0_Seles_A.iim|功能表
+
+
+
+'///到個頁
+URL GOTO=imacros://run/?m=_Atw/_Atw0_Seles_{{!VAR9}}.iim
+
+
+'///進入據本<BR>_Atw0_NewAC<BR>_Atw0_Seles<BR><BR>
+
+
+
+
+

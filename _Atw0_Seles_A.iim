@@ -1,0 +1,156 @@
+'///進入據本<SP>_Atw0_Seles_A<BR>
+'///_AMOK_
+'///'///'///'///'///'///'///'///
+'///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+    '///'///'///'///'///'///'///'///
+    '///LOOP次數
+    '///SET !LOOP 1
+    '///PAUSE
+    '///TAB CLOSEALLOTHERS
+    '///TAB CLOSE
+    '///'///'///'///'///'///'///'///    
+    '///PROMPT <BR>'///修改完'///<BR>NTENT=file:///{{!COL3}}Pag<BR>
+    '///PAUSE
+    '///PROMPT <BR>_AtwEND
+    '///URL GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim
+    '///'///'///'///'///'///'///'///
+
+
+
+'///您的ID套裝
+
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+'///VAR1已經=客個dataUls
+SET !DATASOURCE {{!VAR1}}.txt
+SET !DATASOURCE_LINE 1
+
+
+'///檢測data行數
+URL GOTO=file:///{{!COL2}}Page/Setting/SET.html
+
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=ID:myDatadateWebChgiframeSrc CONTENT=file:///{{!COL2}}Data/{{!COL1}}.txt
+TAG POS=1 TYPE=INPUT:BUTTON FORM=NAME:NoFormName ATTR=*
+
+'///檢測data行數
+FRAME F=1
+TAG POS=1 TYPE=PRE ATTR=TXT:* EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+
+TAB OPEN
+TAB T=2
+URL GOTO=https://www.ifreesite.com/wordcount/
+TAG POS=1 TYPE=TEXTAREA FORM=NAME:NoFormName ATTR=ID:id_content CONTENT={{!VAR0}}
+TAG POS=3 TYPE=INPUT:BUTTON FORM=NAME:NoFormName ATTR=*
+TAG POS=1 TYPE=SPAN ATTR=ID:ID_PART EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+TAB CLOSE
+
+
+TAB T=1
+'///您的ID套裝2
+SET !DATASOURCE {{!VAR1}}.txt
+SET !DATASOURCE_LINE {{!VAR0}}
+'///您的ID套裝END2
+'///data顯示頁
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox CONTENT={{!COL1}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:DATASOURCE_LINE CONTENT={{!VAR0}}
+
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL2 CONTENT={{!COL2}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL3 CONTENT={{!COL3}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL4 CONTENT={{!COL4}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL5 CONTENT={{!COL5}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL6 CONTENT={{!COL6}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL7 CONTENT={{!COL7}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL8 CONTENT={{!COL8}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:CHNAME CONTENT={{!COL9}}
+
+
+
+
+
+
+
+'///PROMPT <BR>'///說明'///<BR>由_Atw0_Start.iim轉來<BR><SP>BAT=...<BR><SP>IIM=_Atw0_Seles_A.iim<BR>PAGE=file:///{{!COL2}}Page/Setting/SET.html<BR><BR>***>END<***<BR>GOTO=imacros://run/?m=_Atw/_Atw{{!SL}}.iim<BR>GOTO=....html<BR><BR>請選擇<BR>.iim<SP>><SP>><SP>
+
+
+
+
+
+
+
+
+
+PROMPT {{!COL1}}<SP>您好<BR>btn={{!COL4}}<BR><BR>請選擇<BR><BR>0=電話開新號(google,ig,fb,carsell)<BR>11=整網(godaddy,google,drv,cssmoban)<BR>98=自動搜尋<BR>99=....<BR>DN=AutoWeb-Ai酒吧管理系統<BR>00=暫停<BR>END=CLOSE<BR> !SL 00
+URL GOTO=imacros://run/?m=_Atw/_Atw{{!SL}}.iim
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
+SET !STEAtwCOL1 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL2 EXTRACT=txt
+SET !STEAtwCOL2 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL3 EXTRACT=txt
+SET !STEAtwCOL3 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL4 EXTRACT=txt
+SET !STEAtwCOL4 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL5 EXTRACT=txt
+SET !STEAtwCOL5 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL6 EXTRACT=txt
+SET !STEAtwCOL6 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL7 EXTRACT=txt
+SET !STEAtwCOL7 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL8 EXTRACT=txt
+SET !STEAtwCOL8 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL9 EXTRACT=txt
+SET !STEAtwCOL9 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:CHNAME EXTRACT=txt
+SET !STEAtwCOL0 {{!EXTRACT}}
+set !extract null
+
+
+
+
+

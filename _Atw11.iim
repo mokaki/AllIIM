@@ -109,7 +109,7 @@ PROMPT <BR>據本整網-已完成<BR>
 
 PAUSE
 '///選擇據本
-URL GOTO=imacros://run/?m=_Atw1.iim
+URL GOTO=imacros://run/?m=_Atw/_Atw1.iim
 
 
 

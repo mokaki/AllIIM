@@ -1,90 +1,473 @@
-  
-'///'///'///'///'///'///'///自動搜尋'///'///'///'///'///'///'///
-'///每行等待時間
-SET !TIMEOUT_STEP 3
-VERSION BUILD=9030808 RECORDER=FX
+
+'///_Atw0.iim<BR>'///電話開新號(google,ig,fb,carsell)'///<BR>
+
+'///'///'///'///'///'///'///'///
 '///不提示一般錯誤
 SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
 '///不彈出獲取信息
 SET !EXTRACT_TEST_POPUP NO
-
-'///'///'///'///'///'///'///筆記
-
-    '///'///'///'///'///'///'///
+    '///'///'///'///'///'///'///'///
     '///LOOP次數
     '///SET !LOOP 1
     '///PAUSE
-    '///'///'///'///'///'///'///
-    
-'///筆記 END
-
-
-'///_AtW2_0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_Atw0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_Atw0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_Atw0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_Atw0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_Atw0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_Atw0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_Atw0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_Atw0.iim<SP>
+    '///TAB CLOSEALLOTHERS
+    '///TAB CLOSE
+    '///'///'///'///'///'///'///'///    
+    '///PROMPT <BR>'///修改完'///<BR>NTENT=file:///{{!COL3}}Pag<BR>
+    '///PAUSE
+    '///PROMPT <BR>_AtwEND
+    '///URL GOTO=imacros://run/?m=_Atw/_AtwEND.iim
+    '///'///'///'///'///'///'///'///
 
 
 
 
-'///由bat打開iim用FF執行'///由bat打開iim用FF執行'///由bat打開iim用FF執行
-'///必須在.../Page/AutoWeb.html打開
-TAB T=1
-'///現在網此複製=VAR1
-SET !VAR1 {{!URLCURRENT}}
-'///因一有用,用二到址
-TAB OPEN
-TAB T=2
-URL GOTO={{!VAR1}}
-'///回一,點GetURLCURRENT
-'///到Data,用於記錄客uls
-TAB T=1
-TAG POS=1 TYPE=A ATTR=ID:GetURLCURRENT
-WAIT SECONDS=3
-SET !VAR1 {{!URLCURRENT}}
-TAB T=2
-TAG POS=1 TYPE=TEXTAREA ATTR=ID:DateUrl CONTENT={{!VAR1}}
-WAIT SECONDS=3
-TAG POS=1 TYPE=TEXTAREA ATTR=ID:DateUrl EXTRACT=txt
+
+'///您的IDPAGE=/SET.html'///'///'///'///'///'///'///'///
+'///PAGE=file:///{{!COL2}}Page/Setting/SET.html
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
 SET !VAR1 {{!EXTRACT}}
 set !extract null
-'///VAR1已經=客個dataUls
-
-'///Data檔名
-PROMPT　<BR><BR>填寫帳號名稱:<BR>請隨便填寫9個或以上[包括9]的任何字符<BR>(最好不要使用,可以用，因為,對本錢包程式有相沖。但,不影響在其他程式中的使用。)<BR><BR>我們將要使用<SP>[安全散列算法SHA（Secure<SP>Hash<SP>Algorithm）]<BR>，創造一個獨一無二的、全新的以太錢包地址，以及您在Something<SP>Mrket使用的帳號。　!walletOVG any...ヽ(✿ﾟ▽ﾟ)ノ...🐳
-'///SaveNOWTime
-SET !VAR2 {{!NOW:ddmmyyhhnnss}}
-'///SaveData
-ADD !EXTRACT {{!walletOVG}},{{!VAR2}},{{!VAR1}},,,,,
-SAVEAS TYPE=EXTRACT FOLDER={{!VAR1}} FILE={{!walletOVG}}{{!VAR2}}.txt
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:DATASOURCE_LINE EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+SET !DATASOURCE {{!VAR1}}.txt
+SET !DATASOURCE_LINE {{!VAR0}}
+'///'///'///'///'///'///'///'///您的IDPAGE=/SET.html END
 
 
 
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_AtW2_0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_AtW2_0.iim<SP>
-
-PROMPT <BR>已經檔案<BR>{{!walletOVG}},{{!VAR2}},{{!VAR1}},,,,,
 
 
+PROMPT <BR>{{!VAR1}}您好<BR>您的手機號 !TEL {{!COL5}}
 
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_AtW2_0.iim<SP>
-'///自動setup網絡形象工程<BR><BR>自進入據本NewAc<BR>_AtW2_0.iim<SP>
+TAB OPEN
+TAB T=2
 
 
 
-URL GOTO=imacros://run/?m=_Atw1.iim
+'///OPEN 英文姓名產生器
+URL GOTO=https://zfly9.blogspot.com/2015/02/getenglishname.html
+TAG POS=21 TYPE=TD ATTR=TXT:* EXTRACT=txt
+SET ACFirstname {{!EXTRACT}}
+set !extract null
+TAG POS=22 TYPE=TD ATTR=TXT:* EXTRACT=txt
+SET ACLastname {{!EXTRACT}}
+set !extract null
 
 
-'///CSV路徑
-SET !DATASOURCE {{!walletOVG}}.txt
-SET !DATASOURCE_LINE 1
+'///随机密码生成套裝googleAC4
+URL GOTO=https://suijimimashengcheng.51240.com/
+TAG POS=1 TYPE=SELECT ATTR=ID:ss_cd CONTENT=%4
+TAG POS=1 TYPE=INPUT:BUTTON ATTR=ID:ss_anniu
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:ss_mmscjg EXTRACT=txt
+SET IGpw1 {{!EXTRACT}}
+set !extract null
 
-PROMPT <BR>已保存檔案<BR>{{!COL1}}<BR>{{!COL2}}<BR>{{!COL3}}<BR>{{!COL4}}
+'///随机密码生成套裝END
+
+
+'///随机密码生成套裝googlePS
+URL GOTO=https://suijimimashengcheng.51240.com/
+TAG POS=1 TYPE=INPUT:BUTTON ATTR=ID:ss_anniu
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:ss_mmscjg EXTRACT=txt
+SET IGpw2 {{!EXTRACT}}
+set !extract null
+'///随机密码生成套裝END
+
+
+TAB T=1
+
+
+ '///TEL
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL5 CONTENT={{!TEL}}
+ '///googleac
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL6 CONTENT={{ACLastname}}{{ACFirstname}}{{IGpw1}}{{!NOW:yyyymm}}
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL6 EXTRACT=txt
+SET !VAR9 {{!EXTRACT}}
+set !extract null
+
+ '///googlepw
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL7 CONTENT={{IGpw2}}
+ '///英文名
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:CHNAME CONTENT={{ACLastname}}{{ACFirstname}}
+
+
+
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
+SET STEAtwCOL1 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL2 EXTRACT=txt
+SET STEAtwCOL2 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL3 EXTRACT=txt
+SET STEAtwCOL3 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL4 EXTRACT=txt
+SET STEAtwCOL4 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL5 EXTRACT=txt
+SET STEAtwCOL5 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL6 EXTRACT=txt
+SET STEAtwCOL6 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL7 EXTRACT=txt
+SET STEAtwCOL7 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL8 EXTRACT=txt
+SET STEAtwCOL8 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL9 EXTRACT=txt
+SET STEAtwCOL9 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:CHNAME EXTRACT=txt
+SET STEAtwCOL0 {{!EXTRACT}}
+set !extract null
+ADD !EXTRACT {{STEAtwCOL1}},{{STEAtwCOL2}},{{STEAtwCOL3}},{{STEAtwCOL4}},{{STEAtwCOL5}},{{STEAtwCOL6}},{{STEAtwCOL7}},{{STEAtwCOL8}},{{STEAtwCOL9}},{{STEAtwCOL0}}
+SAVEAS TYPE=EXTRACT FOLDER={{STEAtwCOL2}}Data FILE={{STEAtwCOL1}}.txt
+
+PROMPT <BR>'///說明'///<BR><BR><BR>印新Data,之後轉頁開gmail<BR><BR>{{STEAtwCOL1}},{{STEAtwCOL2}},{{STEAtwCOL3}},{{STEAtwCOL4}},{{STEAtwCOL5}},{{STEAtwCOL6}},{{STEAtwCOL7}},{{STEAtwCOL8}},{{STEAtwCOL9}},{{STEAtwCOL0}}
+PAUSE
+
+
+
+
+URL GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim
+
+
+
+
+
+
+
+
+
+
+
+TAB T=2
+'///TAB T=3
+'///開googleAC
+URL GOTO=https://www.google.com/search?q=gmali
+TAG POS=1 TYPE=H3 ATTR=TXT:Gmail*
+'///隋機等
+SET !VAR0 EVAL("var randomNumber=Math.floor(Math.random()*30 + 1; randomNumber;") 
+WAIT SECONDS={{!VAR0}}
+TAG POS=4 TYPE=A ATTR=TXT:Create<SP>an<SP>account
+'///隋機等
+SET !VAR0 EVAL("var randomNumber=Math.floor(Math.random()*30 + 1; randomNumber;") 
+WAIT SECONDS={{!VAR0}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/signin/v2/challenge/password/empty ATTR=ID:lastName CONTENT={{ACLastname}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/signin/v2/challenge/password/empty ATTR=ID:firstName CONTENT={{ACFirstname}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=ACTION:/signin/v2/challenge/password/empty ATTR=ID:username CONTENT={{!VAR9}}
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=ACTION:/signin/v2/challenge/password/empty ATTR=NAME:Passwd CONTENT={{IGpw2}}
+'///隋機等
+SET !VAR0 EVAL("var randomNumber=Math.floor(Math.random()*30 + 1; randomNumber;") 
+WAIT SECONDS={{!VAR0}}
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=ACTION:/signin/v2/challenge/password/empty ATTR=NAME:ConfirmPasswd CONTENT={{IGpw2}}
+TAG POS=1 TYPE=IMG ATTR=SRC:https://ssl.gstatic.com/accounts/signup/glif/account.svg
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>FORM>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV:nth-of-type(2)" BUTTON=0
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>FORM>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>INPUT" BUTTON=0
+'///隋機等
+SET !VAR0 EVAL("var randomNumber=Math.floor(Math.random()*30 + 1; randomNumber;") 
+WAIT SECONDS={{!VAR0}}
+EVENTS TYPE=KEYPRESS SELECTOR="HTML>BODY>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>FORM>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>INPUT" CHARS="{{!TEL}}"
+'///隋機等
+SET !VAR0 EVAL("var randomNumber=Math.floor(Math.random()*30 + 1; randomNumber;") 
+WAIT SECONDS={{!VAR0}}
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>FORM>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>INPUT" BUTTON=0
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>FORM>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV>DIV>SPAN>SPAN" BUTTON=0
+PROMPT <BR>验证您的手机号码後<BR>到入生日再左下<BR>
+PAUSE
+
+'///70~99
+SET !VAR7 EVAL("var randomNumber=Math.floor(Math.random()*29 + 70); randomNumber;") 
+
+TAG POS=1 TYPE=INPUT:TEL FORM=NAME:NoFormName ATTR=ID:year CONTENT=19{{!VAR7}}
+
+SET !VAR7 EVAL("var randomNumber=Math.floor(Math.random()*11 + 1); randomNumber;") 
+TAG POS=1 TYPE=SELECT FORM=NAME:NoFormName ATTR=ID:month CONTENT=%{{!VAR7}}
+
+SET !VAR7 EVAL("var randomNumber=Math.floor(Math.random()*27 + 1); randomNumber;") 
+TAG POS=1 TYPE=INPUT:TEL FORM=NAME:NoFormName ATTR=ID:day CONTENT={{!VAR7}}
+
+'///隋機等
+SET !VAR0 EVAL("var randomNumber=Math.floor(Math.random()*30 + 1; randomNumber;") 
+WAIT SECONDS={{!VAR0}}
+
+TAG POS=1 TYPE=SELECT FORM=NAME:NoFormName ATTR=ID:month CONTENT=%3
+
+TAG POS=1 TYPE=SELECT FORM=NAME:NoFormName ATTR=ID:month CONTENT=%4
+TAG POS=1 TYPE=SELECT FORM=NAME:NoFormName ATTR=ID:gender CONTENT=%3
+'///隋機等
+SET !VAR0 EVAL("var randomNumber=Math.floor(Math.random()*30 + 1; randomNumber;") 
+WAIT SECONDS={{!VAR0}}
+
+TAG POS=2 TYPE=SPAN ATTR=TXT:下一步
+TAG POS=1 TYPE=BUTTON FORM=NAME:NoFormName ATTR=TXT:跳过
+TAG POS=2 TYPE=DIV ATTR=TXT:更多选项
+TAG POS=1 TYPE=DIV ATTR=ID:selectionc2
+TAG POS=2 TYPE=SPAN ATTR=TXT:我同意
+
+'///隋機等
+SET !VAR0 EVAL("var randomNumber=Math.floor(Math.random()*30 + 1; randomNumber;") 
+WAIT SECONDS={{!VAR0}}
+
+PROMPT <BR>手動閞欢迎使用<BR>入到GMAIL再左下<BR>
+PAUSE
+
+
+
+EVENT TYPE=CLICK SELECTOR="HTML>BODY>DIV:nth-of-type(7)>DIV:nth-of-type(3)>DIV>DIV:nth-of-type(2)>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV>DIV:nth-of-type(2)>DIV>DIV>DIV>DIV>DIV:nth-of-type(6)>DIV>DIV>DIV:nth-of-type(3)>DIV>TABLE>TBODY>TR>TD:nth-of-type(5)>DIV:nth-of-type(2)" BUTTON=0
+TAG POS=14 TYPE=IMG ATTR=SRC:https://mail.google.com/mail/u/0/images/cleardot.gif
+TAG POS=2 TYPE=SPAN ATTR=TXT:*@gmail.com EXTRACT=txt
+SET !VAR8 {{!EXTRACT}}
+
+
+
+TAB T=1
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL6 CONTENT={{!VAR8}}
+
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
+SET !STEAtwCOL1 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL2 EXTRACT=txt
+SET !STEAtwCOL2 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL3 EXTRACT=txt
+SET !STEAtwCOL3 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL4 EXTRACT=txt
+SET !STEAtwCOL4 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL5 EXTRACT=txt
+SET !STEAtwCOL5 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL6 EXTRACT=txt
+SET !STEAtwCOL6 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL7 EXTRACT=txt
+SET !STEAtwCOL7 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL8 EXTRACT=txt
+SET !STEAtwCOL8 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL9 EXTRACT=txt
+SET !STEAtwCOL9 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:CHNAME EXTRACT=txt
+SET !STEAtwCOL0 {{!EXTRACT}}
+set !extract null
+ADD !EXTRACT {{!STEAtwCOL1}},{{!STEAtwCOL2}},{{!STEAtwCOL3}},{{!STEAtwCOL4}},{{!STEAtwCOL5}},{{!STEAtwCOL6}},{{!STEAtwCOL7}},{{!STEAtwCOL8}},{{!STEAtwCOL9}},{{!STEAtwCOL0}}
+SAVEAS TYPE=EXTRACT FOLDER={{!STEAtwCOL2}}Data FILE={{!STEAtwCOL1}}.txt
+
+
+
+
+PROMPT <BR>'///說明'///<BR>_Atw0_Seles_A.iim轉來<BR><SP>BAT=...<BR><SP>IIM=_Atw0.iim<BR>PAGE=<SP>TAB<SP>T=5<SP>file:///{{!COL2}}Page/Setting/SET.html<BR><BR>***>END<***<BR>GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim<BR>GOTO=...........<BR><BR>印新Data
+PAUSE
+
+URL GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TAB T=2
+URL GOTO=https://www.instagram.com/accounts/emailsignup/
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=NAME:emailOrPhone CONTENT={{!TEL}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=NAME:fullName CONTENT={{!VAR2}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=NAME:username CONTENT={{IGpw1}}{{!NOW:yyyy}}
+WAIT SECONDS=3
+TAG POS=1 TYPE=BUTTON FORM=NAME:NoFormName ATTR=TXT:刷新建议
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=NAME:username EXTRACT=txt
+SET !VAR3 {{!EXTRACT}}
+set !extract null
+TAB T=1
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL8  CONTENT={{!VAR3}}
+
+TAB T=2
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:NoFormName ATTR=NAME:password CONTENT={{IGpw2}}
+
+
+PROMPT <BR>確認無誤，再按左下<BR>
+PAUSE
+TAG POS=1 TYPE=BUTTON FORM=NAME:NoFormName ATTR=TXT:注册
+PROMPT <BR>驗證後，再按左下
+PAUSE
+
+
+
+
+
+
+
+
+
+
+PROMPT <BR>_AtwEND
+URL GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
+SET !STEAtwCOL1 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL2 EXTRACT=txt
+SET !STEAtwCOL2 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL3 EXTRACT=txt
+SET !STEAtwCOL3 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL4 EXTRACT=txt
+SET !STEAtwCOL4 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL5 EXTRACT=txt
+SET !STEAtwCOL5 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL6 EXTRACT=txt
+SET !STEAtwCOL6 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL7 EXTRACT=txt
+SET !STEAtwCOL7 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL8 EXTRACT=txt
+SET !STEAtwCOL8 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:STEAtwCOL9 EXTRACT=txt
+SET !STEAtwCOL9 {{!EXTRACT}}
+set !extract null
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:CHNAME EXTRACT=txt
+SET !STEAtwCOL0 {{!EXTRACT}}
+set !extract null
+ADD !EXTRACT {{!STEAtwCOL1}},{{!STEAtwCOL2}},{{!STEAtwCOL3}},{{!STEAtwCOL4}},{{!STEAtwCOL5}},{{!STEAtwCOL6}},{{!STEAtwCOL7}},{{!STEAtwCOL8}},{{!STEAtwCOL9}},{{!STEAtwCOL0}}
+SAVEAS TYPE=EXTRACT FOLDER={{!COL2}}Data FILE={{!COL1}}.txt
+
+
+
+
+
+
+
+PROMPT <BR>確認後左下<BR>確認後左下<BR>確認後左下<BR>確認後左下<BR>確認後左下
+
+PAUSE
+PROMPT <BR>確認後左下<BR>確認後左下<BR>確認後左下<BR>確認後左下<BR>確認後左下
+
+PAUSE
+
+
+
+
+
+'///OPEN instagram
+TAB OPEN
+TAB T=3
+URL GOTO=https://www.instagram.com/accounts/emailsignup/
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=NAME:emailOrPhone CONTENT={{!COL1}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=NAME:fullName CONTENT={{!VAR2}}
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=NAME:username CONTENT={{IGpw1}}{{!NOW:yyyy}}{{!COL1}}{{!NOW:mm}}
+SET !ENCRYPTION NO
+TAG POS=1 TYPE=INPUT:PASSWORD FORM=NAME:NoFormName ATTR=NAME:password CONTENT={{IGpw2}}
+
+
+
+
+PROMPT <BR>確認後左下<BR>確認後左下<BR>確認後左下<BR>確認後左下<BR>確認後左下
+
+PAUSE
+
+
+
+TAG POS=1 TYPE=BUTTON FORM=NAME:NoFormName ATTR=TXT:注册
+PROMPT <BR>確認後左下
+PAUSE
+PAUSE
+
+'///AMOK修改Iim尾巴
+PROMPT <BR>URL<SP>GOTO=https://www.instagram.com/<BR>
+PAUSE
+URL GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim
+'///AMOK修改Iim尾巴END
+
+
+
+
+
+
+
+
+
+
+TAB CLOSE
+TAB T=3
+
+
+
+
 
 
 

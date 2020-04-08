@@ -1,0 +1,251 @@
+'///_AMOK_
+'///'///'///'///'///'///'///'///
+'///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+    '///'///'///'///'///'///'///'///
+    '///LOOP次數
+    '///SET !LOOP 1
+    '///PAUSE
+    '///TAB CLOSEALLOTHERS
+    '///TAB CLOSE
+    '///'///'///'///'///'///'///'///    
+    '///PROMPT <BR>'///修改完'///<BR>NTENT=file:///{{!COL3}}Pag<BR>
+    '///PAUSE
+    '///PROMPT <BR>_AtwEND
+    '///URL GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim
+    '///'///'///'///'///'///'///'///
+
+
+'///開新AC_Atw0_NewAC
+
+
+
+'///由bat打開iim用FF執行'///由bat打開iim用FF執行'///由bat打開iim用FF執行
+'///必須在.../Page/AutoWeb.html打開
+TAB T=1
+
+'///您的ID套裝
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
+SET !VAR0 {{!EXTRACT}}
+set !extract null
+
+
+
+
+'///現在網此複製=VAR1
+SET !VAR1 {{!URLCURRENT}}
+
+'///因一有用,用二到址
+TAB OPEN
+TAB T=2
+URL GOTO={{!VAR1}}
+'///回一,點GetURLCURRENT
+'///到Data,用於記錄客uls
+TAB T=1
+TAG POS=1 TYPE=A ATTR=ID:GetURLCURRENT
+WAIT SECONDS=3
+SET !VAR1 {{!URLCURRENT}}
+TAB T=2
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:a1 CONTENT={{!VAR1}}
+WAIT SECONDS=3
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:a1 EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+'///VAR1已經=客個dataUls
+
+
+
+
+
+'///Data檔名
+PROMPT <BR>創建您的ID<BR><BR>您的ID可用於存取多項AutoWeb產品(例如自動收入程式和Ai酒吧管理系統)。<BR><BR>ID不可以公開，必須由用戶自行嚴格秘密保管，<BR>絕不可透過任何途徑向任何人提供，也不可透露給任何方。<BR><BR>任何人知道您的ID,即可使用ID內的資金及功能<BR>忘記ID,資金永遠不可取回<BR><BR>日後填寫此ID,即可執行您的自動賺錢程式<BR>ID不可以是符號及空格<BR> !walletOVG {{!VAR0}}
+
+
+
+
+'///SaveNOWTime
+SET !VAR2 {{!NOW:yyyymmddhhnnss}}
+
+
+'///GetBTN
+TAB OPEN
+TAB T=3
+URL GOTO=https://www.bitaddress.org/
+TAG POS=1 TYPE=LI ATTR=ID:brainwallet
+TAG POS=1 TYPE=INPUT:CHECKBOX ATTR=ID:brainpassphraseshow CONTENT=YES
+TAG POS=1 TYPE=INPUT:TEXT ATTR=ID:brainpassphrase CONTENT={{!walletOVG}}{{!VAR1}}{{!VAR2}}
+TAG POS=1 TYPE=DIV ATTR=TXT:Confirm<SP>Passphrase:<SP>Algorithm:<SP>SHA256(passphrase)
+ONDIALOG POS=1 BUTTON=OK CONTENT=
+TAG POS=1 TYPE=INPUT:BUTTON ATTR=ID:brainview
+TAG POS=1 TYPE=SPAN ATTR=ID:brainbtcaddress EXTRACT=txt
+SET !VAR3 {{!EXTRACT}}
+set !extract null
+WAIT SECONDS=2
+
+
+'///SaveDataLINE1
+'///1帳號名,2Data位,3當時SaveNOWTime,4BtcAc,5TEL
+'///{{!walletOVG}},{{!VAR1}},{{!VAR2}},{{!VAR3}}
+ADD !EXTRACT {{!walletOVG}},{{!VAR1}},{{!VAR2}},{{!VAR3}},,,,,,,,,,,,,,,,
+SAVEAS TYPE=EXTRACT FOLDER={{!VAR1}}Data FILE={{!walletOVG}}.txt
+
+
+TAB CLOSE
+TAB CLOSE
+TAB CLOSE
+URL GOTO=file:///{{!VAR1}}Page/_AtwHomePage.html
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox  CONTENT={{!walletOVG}}
+
+
+
+
+
+
+'///PROMPT <BR>'///說明'///<BR>_Atw0_Seles_.iim轉來<BR><SP>BAT=...<BR><SP>IIM=_Atw0_NewAC.iim<BR>PAGE=file:///{{!COL2}}Page/_AtwHomePage.html<BR><BR>***>END<***<BR>GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim<BR>GOTO=file:///{{!VAR1}}Page/_AtwHomePage.html<BR><BR>記錄Date位置<SP>>><SP>寫ID<SP>>><SP>當時<SP>>><SP>BtcAc
+
+
+
+
+
+
+
+
+URL GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TAB OPEN
+TAB T=2
+URL GOTO=file:///{{!VAR1}}Page/ChangeAll/ChangeAll-Iim.html
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox  CONTENT={{!VAR9}}
+TAG POS=1 TYPE=A ATTR=ID:Iim_Ddownload_link
+PROMPT <BR>'///請下載並放到AutoWeb/Iim'///<BR>即可執行您的自動賺錢程式
+PAUSE
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+URL GOTO=file:///{{!VAR1}}Page/ChangeAll/ChangeAll-Bat.html
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox  CONTENT={{!walletOVG}}
+TAG POS=1 TYPE=A ATTR=ID:Bat_Ddownload_link
+PROMPT <BR>'///請下載並放到AutoWeb/Bat'///<BR>即可執行您的自動賺錢程式
+PAUSE
+
+
+
+URL GOTO=file:///{{!VAR1}}Page/ChangeAll/ChangeAll-Page.html
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox  CONTENT={{!walletOVG}}
+TAG POS=1 TYPE=A ATTR=ID:Page_Ddownload_link
+PROMPT <BR>'///請下載並放到AutoWeb/Page'///<BR>即可執行您的自動賺錢程式
+
+PAUSE
+
+
+
+
+TAB T=1
+'///CSV路徑
+TAG POS=1 TYPE=TEXTAREA ATTR=ID:MywalletOVGBox EXTRACT=txt
+SET !VAR1 {{!EXTRACT}}
+set !extract null
+'///VAR1已經=客個dataUls
+SET !DATASOURCE {{!VAR1}}.txt
+SET !DATASOURCE_LINE 1
+'///顯示Iframe
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=ID:aaaaaaa001WebChgiframeSrc CONTENT=file:///{{!COL2}}Page/
+TAG POS=6 TYPE=INPUT:BUTTON FORM=NAME:NoFormName ATTR=*
+TAG POS=1 TYPE=INPUT:TEXT FORM=NAME:NoFormName ATTR=ID:aa7WebChgiframeSrc CONTENT=file:///{{!COL2}}Iim/
+TAG POS=7 TYPE=INPUT:BUTTON FORM=NAME:NoFormName ATTR=*
+
+
+
+
+
+
+
+
+URL GOTO=imacros://run/?m=_Atw/_Atw0_Start.iim
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,36 @@
+'///_AMOK_
+'///'///'///'///'///'///'///'///
+'///不提示一般錯誤
+SET !ERRORIGNORE YES
+'///每行等待時間
+SET !TIMEOUT_STEP 3
+'///不彈出獲取信息
+SET !EXTRACT_TEST_POPUP NO
+    '///'///'///'///'///'///'///'///
+    '///LOOP次數
+    '///SET !LOOP 1
+    '///PAUSE
+    '///TAB CLOSEALLOTHERS
+    '///TAB CLOSE
+    '///'///'///'///'///'///'///'///    
+    '///PROMPT <BR>'///修改完'///<BR>NTENT=file:///{{!COL3}}Pag<BR>
+    '///PAUSE
+    '///PROMPT <BR>_AtwEND
+    '///URL GOTO=imacros://run/?m=_Atw/_Atw1.iim
+    '///'///'///'///'///'///'///'///
+
+
+'///沒有AC,轉開AC
+
+
+
+
+
+'///PROMPT <BR>'///說明'///<BR>由_Atw0_Start.iim轉來<BR><SP>BAT=...<BR><SP>IIM=_Atw0_Seles_.iim<BR>PAGE=file:///{{!COL2}}Page/_AtwHomePage.html<BR><BR>***>END<***<BR>GOTO=imacros://run/?m=_Atw/_Atw0_NewAC.iim<BR>GOTO=....html<BR><BR>去開AC<BR>_Atw0_Seles_.iim<SP>><SP>><SP>_Atw0_NewAC.iim
+
+
+
+
+
+
+URL GOTO=imacros://run/?m=_Atw/_Atw0_NewAC.iim

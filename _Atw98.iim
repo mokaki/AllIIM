@@ -72,5 +72,5 @@ PROMPT 自動搜尋END
 PAUSE
 
 '///回 AutoWeb-0.iim
-URL GOTO=imacros://run/?m=_Atw1.iim
+URL GOTO=imacros://run/?m=_Atw/_Atw1.iim
 
